@@ -8,19 +8,26 @@
                     <a href="post.html">
                         <h1 class="post-category">{{ $post->title }}</h1>
                     </a>
-                    <h2 class="post-title">{{ $post->slug }}</h2>
-                    <p class="post-subtitle">{{ $post->description }}</p>
-                    <p class="post-subtitle">{{ $post->excerpt }}</p>
-                    <p class="post-subtitle">{{ $post->min_to_read }}</p>
+                    @foreach ($categories as $category)
+                        @if ($category->id == $post->category_id)
+                            <p>{{ $category->name }}</p>
+                        @endif
+                    @endforeach
+
+                    <p class="post-title">{{ $post->slug }}</p>
+                    <p>{{ $post->description }}</p>
+                    <p>{{ $post->excerpt }}</p>
+                    <p>{{ $post->min_to_read }} mins to read</p>
+
 
                     <p class="post-meta">
-                        Posted by
+
                         @foreach ($users as $user)
                             @if ($user->id == $post->user_id)
-                                <p>{{ $user->name }}</p>
+                                <p> Posted by: {{ $user->name }}</p>
                             @endif
                         @endforeach
-                        on September 24, 2023
+                    <p>{{ $post->created_at }}</p>
                     </p>
                 </div>
             @endforeach

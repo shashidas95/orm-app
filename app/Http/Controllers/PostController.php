@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -14,17 +15,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category')->get();
-        $users = Post::with('user')->get();
-        // foreach ($users as $user) {
-        //     return $user;
-        // }
-
-
-
-        return view('pages.home', compact(['posts', 'users']));
+        $categories = Category::with('posts')->get();
+        $posts = Post::with('category')->latest()->get();
+        $users = User::with('posts')->get();
+        return view('pages.home', compact(['posts', 'users', 'categories']));
     }
-
 
     //Task -5
     public function postsData()
@@ -34,16 +29,12 @@ class PostController extends Controller
         return $posts;
     }
 
-
     //Task extra task
     public function usersData()
     {
         $users = Post::with('user')->get();
         return $users;
     }
-
-
-
     //Task 6
     public function countPost()
     {
