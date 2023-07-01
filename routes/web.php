@@ -18,20 +18,20 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-//pages route
-// Route::get('/', [HomeController::class, 'index']);
+// //pages route
+// Route::get('/home', [HomeController::class, 'index']);
 Route::get('/contact', [ContactController::class, 'index']);
 Route::get('/about', [AboutController::class, 'index']);
-
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/posts', [PostController::class, 'index']);
 
 //data routes
 Route::get('/usersData', [PostController::class, 'usersData']);
+Route::get('/latestPosts', [PostController::class, 'latestPosts']);
 Route::get('/latestPost', [CategoryController::class, 'latestPost']);
 Route::get('/categories/{id}/posts', [CategoryController::class, 'postsOfCategory']);
 
@@ -42,5 +42,6 @@ Route::get('/countPost', [PostController::class, 'countPost']);
 //Task -7
 Route::get('/posts/{id}/delete', [PostController::class, 'deletePost']);
 //Task -8
-Route::get('retrieveDeleteData', [PostController::class, 'retrieveDeleteData']);
+Route::get('/softDeletedPosts', [PostController::class, 'softDeletedPosts']);
 Route::get('restoreDeleteData', [PostController::class, 'restoreDeleteData']);
+

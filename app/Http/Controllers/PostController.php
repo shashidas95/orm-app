@@ -44,16 +44,18 @@ class PostController extends Controller
         return $posts;
     }
     //Task 7
-    public function deletePost()
+    public function deletePost($id)
     {
-        $post = Post::find(50);
+        $post = Post::findOrFail($id);
         $post->delete();
     }
     //Task 8
-    public function retrieveDeleteData()
+
+    public function softDeletedPosts()
     {
-        $posts =  Post::withTrashed()->get();
-        return $posts;
+        $softDeletedPosts = Post::getSoftDeletedPosts();
+
+        return view('pages.soft-deleted-posts', compact('softDeletedPosts'));
     }
     public function restoreDeleteData()
     {
@@ -62,6 +64,17 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
+    public function latestPosts()
+    {
+        $categories = Category::with(['posts' => function ($query) {
+            $query->latest()->take(1);
+        }])->get();
+        // $posts = Post::with('category')->latest()->get();
+
+        return view('latest-posts', compact('categories'));
+        // return view('latest-posts', compact('posts'));
+    }
     public function create()
     {
         //

@@ -15,6 +15,10 @@ class Post extends Model
     use HasFactory, SoftDeletes;
     public  $timestamps = true;
     protected $dates = ['deleted_at'];
+    public static function getSoftDeletedPosts()
+    {
+        return self::withTrashed()->get();
+    }
 
     protected $fillable = [
         'user_id',

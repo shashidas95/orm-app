@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-    @include('components.contacts')
+    @include('pages.contacts')
 @endsection

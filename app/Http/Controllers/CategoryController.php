@@ -27,10 +27,11 @@ class CategoryController extends Controller
         return $latestPost;
     }
     //Task -10
-    public function postsOfCategory()
+    public function postsOfCategory($id)
     {
-        $categories = Post::with('category')->where('id', 2)->get();
-        return $categories;
+        $category = Category::findOrFail($id);
+        $posts = $category->posts;
+        return view('pages.category-posts', compact('category', 'posts'));
     }
 
     /**

@@ -1,5 +1,5 @@
 @extends('layouts.app')
 @section('content')
     @include('components.hero')
-    @include('components.posts')
+    @include('pages.posts')
 @endsection
